@@ -2,6 +2,7 @@ package cat.institut.marianao.exercici_2_password
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Html
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -35,7 +36,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             else{
-                Toast.makeText(this, "Wrong Password. \n It's to easy as abc123", Toast.LENGTH_SHORT).show()
+                val passwordIncorrect = Html.fromHtml("<font color='red'>Wrong Password.<br>It's to easy as abc123</font>", Html.FROM_HTML_MODE_LEGACY)
+
+                Toast.makeText(this, passwordIncorrect, Toast.LENGTH_SHORT).show()
             }
 
 
