@@ -3,7 +3,6 @@ package cat.institut.marianao.ex2
 import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
-import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -55,12 +54,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun addListenners(){
 
-        checkBoxAdd.setOnCheckedChangeListener { buttonView: CompoundButton, isChecked: Boolean ->
-            action.add("ADD")
+        checkBoxAdd.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                if (!action.contains("ADD")) {
+                    action.add("ADD")
+                }
+            } else {
+                action.remove("ADD")
+            }
         }
 
-        checkBoxSubstract.setOnCheckedChangeListener { buttonView: CompoundButton, isChecked: Boolean ->
-            action.add("SUBSTRACT")
+        checkBoxSubstract.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                if (!action.contains("SUBSTRACT")) {
+                    action.add("SUBSTRACT")
+                }
+            } else {
+                action.remove("SUBSTRACT")
+            }
         }
 
         btnAdd.setOnClickListener {
@@ -84,7 +95,7 @@ class MainActivity : AppCompatActivity() {
 
 
             when(action.size){
-                0 -> Toast.makeText(this, "Complete Camps 1 and 2 to continue your transaction.", Toast.LENGTH_SHORT).show()
+                0 -> Toast.makeText(this, "Select at least one operation", Toast.LENGTH_SHORT).show()
 
 
                 1-> {
@@ -93,29 +104,22 @@ class MainActivity : AppCompatActivity() {
                     }
 
                     if(action.get(0)=="SUBSTRACT"){
-                        addResult.text="Substract: " + (operator1.toInt()-operator2.toInt())
+                        substractResult.text="Substract: " + (operator1.toInt()-operator2.toInt())
                     }
 
                 }
 
                 2 -> {
                     addResult.text="Add: " + (operator1.toInt()+operator2.toInt())
-                    addResult.text="Substract: " + (operator1.toInt()-operator2.toInt())
+                    substractResult.text="Substract: " + (operator1.toInt()-operator2.toInt())
                 }
 
 
             }
 
-
-
-
-               Toast.makeText(this, "Select one or two option of the checkBox", Toast.LENGTH_SHORT).show()
-
-
-
         }
         else{
-
+            Toast.makeText(this, "Introduce valid numbers", Toast.LENGTH_SHORT).show()
         }
     }
 
